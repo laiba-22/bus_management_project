@@ -7,7 +7,7 @@ const sequelize_1 = require("sequelize");
 const sequelize_2 = __importDefault(require("../sequelize"));
 class User extends sequelize_1.Model {
 }
-//initial values of the user table
+//initial values of the user table - idher we can add rules for each field 
 User.init({
     id: {
         type: sequelize_1.DataTypes.INTEGER,
@@ -23,6 +23,7 @@ User.init({
     },
     password: {
         type: sequelize_1.DataTypes.STRING,
+        unique: true,
     },
     phoneNo: {
         type: sequelize_1.DataTypes.STRING,
@@ -31,6 +32,6 @@ User.init({
     sequelize: sequelize_2.default,
     modelName: 'User',
     tableName: 'users',
-    timestamps: false, // you can set to true if your table has createdAt/updatedAt
+    timestamps: false, //to remove createdAt/updatedAt col
 });
 exports.default = User;
