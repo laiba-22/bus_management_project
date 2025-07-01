@@ -10,6 +10,7 @@ interface UserCredentials {
     email:string; 
     password:string; 
     phoneNo:string;
+    userType?: "user" | "super_admin";  //default is user
 
 }
 
@@ -26,7 +27,15 @@ const checkUserExists = async (email : string) : Promise<boolean> => {
 //signup service
 export const userSignupService = async (userInfo : UserCredentials) : Promise<any>=> {
 
-    const {name, email, password, phoneNo} : UserCredentials = userInfo;
+    let {name, email, password, phoneNo, userType} : UserCredentials = userInfo;
+
+    //checking is someone is trying to create a super admin
+    if (userType === 'super_admin') {
+        throw new Error("Super admin can not be created!");
+    }
+
+    //default userType = 'user'
+    userType = userType || 'user';
 
     //checking for existing user
     const userExists = await checkUserExists(email);
@@ -42,7 +51,8 @@ export const userSignupService = async (userInfo : UserCredentials) : Promise<an
         name,
         email,
         password: hashedPassword,
-        phoneNo
+        phoneNo,
+        userType
     })
    
     //success response

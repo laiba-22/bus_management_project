@@ -14,6 +14,7 @@ interface UserCredentials {
     email:string; 
     password:string; 
     phoneNo:string;
+    userType?: "user" | "super_admin";  //default is user
 
 }
 
@@ -22,11 +23,11 @@ interface UserCredentials {
 //---SIGNUP CONTROLLER---
 export const signupController = async (req : Request, res : Response) : Promise<any>=> {
 
-    const {name, email, password, phoneNo} : UserCredentials = req.body;
+    const {name, email, password, phoneNo, userType} : UserCredentials = req.body;
 
     try {
 
-        const result = await userSignupService({name, email, password, phoneNo});
+        const result = await userSignupService({name, email, password, phoneNo, userType});
         res.status(201).json(result);           //success response
     } 
     catch (error: any) {

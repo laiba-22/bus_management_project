@@ -4,7 +4,8 @@ import sequelize from '../sequelize';
 
 class User extends Model 
 {
-  public id!: number;      //we use ! since we'll initialize these through sequelize later
+  public id!: number;                          //we use ! since we'll initialize these through sequelize later
+  public userType!: "user" | "super_admin";    //abhi 2 types se restrict kia hai
   public name!: string;
   public email!: string;
   public password!: string;
@@ -20,6 +21,14 @@ User.init(
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
+    },
+    userType: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: 'user',      // by default - itll be a user
+      validate: {
+        isIn: [['user', 'super_admin']], 
+      },
     },
     name: {
       type: DataTypes.STRING,

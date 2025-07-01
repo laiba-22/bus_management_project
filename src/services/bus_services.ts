@@ -2,7 +2,6 @@ import Bus from '../models/Bus'
 import Route from '../models/Routes'
 
 
-
 //route details
 interface RouteDetails{
     busId: number;
@@ -14,7 +13,6 @@ interface RouteDetails{
 }
 
 
-
 //bus details
 interface BusDetails {
     registrationNo: string,
@@ -22,9 +20,8 @@ interface BusDetails {
 }
 
 
-
 //---adding a new bus---
-export const addBus = async (busDetails: BusDetails): Promise<any> => {
+export const addBusService = async (busDetails: BusDetails): Promise<any> => {
 
     const { registrationNo, routes } = busDetails;
 
@@ -35,7 +32,7 @@ export const addBus = async (busDetails: BusDetails): Promise<any> => {
         throw new Error("Bus with this registration number already exists!");
     }
 
-    
+
     //creating a new bus
     const newBus = await Bus.create({ registrationNo });
 
@@ -55,4 +52,32 @@ export const addBus = async (busDetails: BusDetails): Promise<any> => {
         }
     };
 
+}
+
+
+//---getting bus details by id---
+export const getBusDetailsService = async (busId: number): Promise<any> => {
+
+    //fetching bus details
+    const bus = await Bus.findByPk(busId, {
+        include: [Route]
+    });
+
+    if (!bus) {
+        throw new Error("Bus not found!");
+    }
+
+    return {
+        success: true,
+        message: 'Bus details fetched successfully!',
+        bus
+        }
+        
+};
+
+
+//---updating bus details---
+export const updateBusService = async (busId: number, busDetails: BusDetails): Promise<any> => {
+
+    
 }

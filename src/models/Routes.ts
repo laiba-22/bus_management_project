@@ -56,7 +56,7 @@ Route.init(
 },
 {
     sequelize,
-    modelName: 'Routes',
+    modelName: 'Route',
     tableName: 'routes'
 }
 )
