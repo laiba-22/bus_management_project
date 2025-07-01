@@ -47,7 +47,7 @@ export const userSignupService = async (userInfo : UserCredentials) : Promise<an
    
     //success response
     return {
-        sucess:true,
+        success:true,
         message: 'User created successfully!' , 
         user: {
             name,
@@ -85,7 +85,7 @@ export const loginService = async (mail: string, pw: string) : Promise<any> => {
     console.log("login service called");
 
     return{
-        sucess:true,
+        success:true,
         message: 'Login successful!',
         token,
         user: {

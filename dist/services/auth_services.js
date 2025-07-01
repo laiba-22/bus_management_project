@@ -27,7 +27,7 @@ const userSignupService = (userInfo) => __awaiter(void 0, void 0, void 0, functi
     //checking for existing user
     const userExists = yield checkUserExists(email);
     if (userExists) {
-        throw new Error("OPPS:( user already exists!");
+        throw new Error("User already exists!");
     }
     //hashing the password
     const hashedPassword = yield bcrypt.hash(password, 10);
@@ -40,7 +40,8 @@ const userSignupService = (userInfo) => __awaiter(void 0, void 0, void 0, functi
     });
     //success response
     return {
-        message: 'WOHOO:) user created successfully!',
+        success: true,
+        message: 'User created successfully!',
         user: {
             name,
             email,
@@ -56,18 +57,19 @@ const loginService = (mail, pw) => __awaiter(void 0, void 0, void 0, function* (
     const userr = yield User_1.default.findOne({ where: { email } });
     //no user with this email
     if (!userr) {
-        throw new Error("OPPS:( user with this email does not exist!");
+        throw new Error("User with this email does not exist!");
     }
     //since user with email is found- now we confirm pw
     const isPasswordValid = yield bcrypt.compare(password, userr.password);
     if (!isPasswordValid) {
-        throw new Error("OPPS:( password is incorrect!");
+        throw new Error("Incorrect Password!");
     }
     //creating a token
-    const token = jwt.sign({ id: userr.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: userr.id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
     console.log("login service called");
     return {
-        message: 'WOHOO:) login successful!',
+        success: true,
+        message: 'Login successful!',
         token,
         user: {
             name: userr.name,

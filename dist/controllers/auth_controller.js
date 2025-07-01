@@ -22,7 +22,7 @@ const signupController = (req, res) => __awaiter(void 0, void 0, void 0, functio
         res.status(201).json(result); //success response
     }
     catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ sucess: true, message: error.message });
     }
 });
 exports.signupController = signupController;
@@ -35,7 +35,7 @@ const loginController = (req, res) => __awaiter(void 0, void 0, void 0, function
         console.log(`User ${result.user.name} logged in successfully using my super awesome service!`);
     }
     catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(400).json({ sucess: true, message: error.message });
     }
 });
 exports.loginController = loginController;

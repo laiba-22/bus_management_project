@@ -9,6 +9,7 @@ require('dotenv').config();
 const sequelize_1 = __importDefault(require("./sequelize"));
 const express_1 = __importDefault(require("express"));
 const auth_route_1 = __importDefault(require("./routes/auth_route"));
+const admin_routes_1 = __importDefault(require("./routes/admin_routes"));
 //checking ke saare models database me hain na
 sequelize_1.default.sync();
 //setting up our app
@@ -17,6 +18,8 @@ app.use(express_1.default.json());
 const port = process.env.PORT;
 //to use the routes set up in auth_routes.ts
 app.use('/', auth_route_1.default);
+//for admin crud operations
+app.use('/admin', admin_routes_1.default);
 //root route
 app.get('/', (req, res) => {
     res.send('this is the postgres auth api');
