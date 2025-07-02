@@ -1,10 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 import sequelize from '../sequelize';
 
+
 class Bus extends Model {
     public id!: number;        
     public registrationNo!: number; 
 }
+
 
 Bus.init(
 {

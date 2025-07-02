@@ -65,3 +65,28 @@ export const updateBusService = async (busId: number, busDetails: BusDetails): P
 
     
 }
+
+
+export const deleteBusService = async (busId: number): Promise<any> => {
+
+    //finding the bus
+    const bus = await Bus.findByPk(busId);
+
+    //no bus- so error
+    if (!bus) {
+        throw new Error("Bus not found!");
+    }
+
+    //deleting routes
+    Route.destroy({ where: {busId} })
+
+    //deleting bus
+    await bus.destroy()
+
+
+    return {
+        success: true,
+        message: 'Bus and its routes deleted successfully!',
+        }
+        
+};

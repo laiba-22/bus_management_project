@@ -2,6 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import sequelize from '../sequelize';
 import Bus from './Bus';
 
+
 class Route extends Model {
     public id!: number; 
     public busId!: number;       
@@ -11,6 +12,7 @@ class Route extends Model {
     public arrivalTime!: Date;
     public fare!: number;
 }  
+
 
 Route.init(
 {
@@ -40,12 +42,12 @@ Route.init(
     },
 
     departureTime: {
-        type: DataTypes.DATE,
+        type: DataTypes.TIME,
         allowNull: false,
     },
 
     arrivalTime: {
-        type: DataTypes.DATE,
+        type: DataTypes.TIME,
         allowNull: false,
     },
 

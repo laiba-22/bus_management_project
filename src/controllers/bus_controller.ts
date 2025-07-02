@@ -1,7 +1,7 @@
 require('dotenv').config();
 import express, {Request, Response} from 'express'
 import Bus from '../models/Bus';
-import { addBusService, getBusDetailsService } from '../services/bus_services';
+import { addBusService, getBusDetailsService, deleteBusService } from '../services/bus_services';
 
 
 
@@ -10,8 +10,8 @@ export const addBusController = async (req : Request, res : Response) : Promise<
 
     try {
 
-        const result = await addBusService(req.body);
-        res.status(201).json({ result});           //success response
+        const result = await addBusService(req.body);   //url params me se bus id fetch kar rae 
+        res.status(201).json({ result});                //success response
     } 
     catch (error: any) {
 
@@ -47,11 +47,29 @@ export const updateBusController = async (req : Request, res : Response) : Promi
 
     try{
 
-        
 
     }
     catch{
         res.status(400).json({ success: false, message: "Error updating bus details" });
+    }
+
+}
+
+
+
+
+//---DELETE BUS - CONTROLLER ----
+export const deleteBusController = async (req: Request, res : Response): Promise <any> =>{
+    
+    try{
+
+        const busId = parseInt(req.params.id);
+        const result = await deleteBusService(busId);
+        res.status(200).json({result});
+
+    }
+    catch{
+        res.status(400).json({ success: false, message: "Error deleting bus" });
     }
 
 }
