@@ -45,6 +45,14 @@ export const getBusDetailsController = async (req : Request, res : Response) : P
 //---UPDATE BUS - CONTROLLER---
 export const updateBusController = async (req : Request, res : Response) : Promise<any>=> {
 
-    
+    try{
+
+        
+
+    }
+    catch{
+        res.status(400).json({ success: false, message: "Error updating bus details" });
+    }
 
 }
+

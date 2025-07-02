@@ -1,18 +1,9 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 import User from '../models/User'
+import {UserCredentials } from '../types/types';
 
 
-//user type
-interface UserCredentials {
-
-    name:string; 
-    email:string; 
-    password:string; 
-    phoneNo:string;
-    userType?: "user" | "super_admin";  //default is user
-
-}
 
 
 //helper function - check if user already exists
@@ -59,11 +50,7 @@ export const userSignupService = async (userInfo : UserCredentials) : Promise<an
     return {
         success:true,
         message: 'User created successfully!' , 
-        user: {
-            name,
-            email,          
-            phoneNo
-        }
+        user
     };
 
 }
@@ -71,14 +58,13 @@ export const userSignupService = async (userInfo : UserCredentials) : Promise<an
 
 
 //login service
-export const loginService = async (mail: string, pw: string) : Promise<any> => {
+export const loginService = async (email: string, password: string) : Promise<any> => {
 
-    const { email, password }: {email:string; password:string} = { email: mail, password: pw };
 
     //fetching the user with the email id
     const userr = await User.findOne({ where: {email}})
 
-    //no user with this email
+    //no user with this emailauth-api
     if (!userr) {
         throw new Error("User with this email does not exist!");
     }

@@ -14,23 +14,15 @@ const createSuperAdmin = async () => {
     const existingAdmin = await User.findOne({ where: { userType: 'super_admin' } });
 
     if (existingAdmin) {
-      console.log('Super admin already exists!');
+      console.error('Super admin already exists!');
       return;
-    }
-
-    //taking input for super admin details
-    const name = prompt('Enter super admin name: ');
-    const email = prompt('Enter super admin email: ');  
-    const phoneNo = prompt('Enter super admin phone number: ');
-    const password = prompt.hide('Enter super admin password: ');
-
-    const hashedPassword = await bcrypt.hash(password  , 10);   
+    } 
 
     await User.create({
-      name,
-      email,
-      password: hashedPassword,
-      phoneNo,
+      name:"Laiba",
+      email: "Laiba123@gmail.com",
+      password: bcrypt.hash("Laiba123", 10),
+      phoneNo: "1234567890",
       userType: 'super_admin'
     });
 

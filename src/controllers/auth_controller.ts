@@ -4,20 +4,7 @@ require('dotenv').config();
 import express, {Request, Response} from 'express'
 import User from '../models/User';
 import { userSignupService, loginService } from '../services/auth_services';
-
-
-
-//user type
-interface UserCredentials {
-
-    name:string; 
-    email:string; 
-    password:string; 
-    phoneNo:string;
-    userType?: "user" | "super_admin";  //default is user
-
-}
-
+import { UserCredentials } from '../types/types';
 
 
 //---SIGNUP CONTROLLER---

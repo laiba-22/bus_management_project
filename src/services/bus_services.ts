@@ -1,23 +1,7 @@
 import Bus from '../models/Bus'
 import Route from '../models/Routes'
+import { BusDetails, RouteDetails } from '../types/types';
 
-
-//route details
-interface RouteDetails{
-    busId: number;
-    source: string;
-    destination: string;
-    departureTime: Date;
-    arrivalTime: Date;
-    fare: number;
-}
-
-
-//bus details
-interface BusDetails {
-    registrationNo: string,
-    routes: RouteDetails[]
-}
 
 
 //---adding a new bus---
