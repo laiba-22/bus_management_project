@@ -24,5 +24,16 @@ export interface RouteDetails{
 //bus details
 export interface BusDetails {
     registrationNo: string,
+    description: string,
     routes: RouteDetails[]
+}
+
+
+
+//city details
+export interface CityDetails{
+    terminal_name: string;    
+    city: string;
+    is_active: boolean;
+    address: string;
 }

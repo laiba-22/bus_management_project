@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.post('/addbus', addBusController);                  //create
 router.get('/getBusData/:id', getBusDetailsController);    //read
-router.post('/updateBus/:id', updateBusController);        //update
+router.put('/updateBus/:id', updateBusController);        //update
 router.delete('/deleteBus/:id', deleteBusController);      //delete
 
 export default router;

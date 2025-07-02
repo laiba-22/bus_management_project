@@ -5,10 +5,12 @@ import sequelize from './sequelize';
 import express, {Request, Response} from 'express'
 import authRoutes from './routes/auth_route';
 import busRoutes from './routes/bus_routes';
+import cityRoutes from './routes/cities_routes';
+
 
 
 //checking ke saare models database me hain na
-sequelize.sync()   
+sequelize.sync( {})   
  
 
 //setting up our app
@@ -23,6 +25,10 @@ app.use('/', authRoutes);
 
 //for bus crud operations
 app.use('/bus', busRoutes)
+
+
+//for city crud operations
+app.use('/city', cityRoutes)
 
 
 //root route

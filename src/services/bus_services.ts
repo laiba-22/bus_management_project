@@ -7,7 +7,7 @@ import { BusDetails, RouteDetails } from '../types/types';
 //---adding a new bus---
 export const addBusService = async (busDetails: BusDetails): Promise<any> => {
 
-    const { registrationNo, routes } = busDetails;
+    const { registrationNo, description , routes } = busDetails;
 
 
     //checking if bus already exists
@@ -18,7 +18,7 @@ export const addBusService = async (busDetails: BusDetails): Promise<any> => {
 
 
     //creating a new bus
-    const newBus = await Bus.create({ registrationNo });
+    const newBus = await Bus.create({ registrationNo, description });
 
 
     //adding the routes
@@ -30,10 +30,7 @@ export const addBusService = async (busDetails: BusDetails): Promise<any> => {
     return {
         success: true,
         message: 'Bus and routes added successfully!',
-        bus: {
-        registrationNo,
-        routes
-        }
+        newBus
     };
 
 }
@@ -61,10 +58,39 @@ export const getBusDetailsService = async (busId: number): Promise<any> => {
 
 
 //---updating bus details---
-export const updateBusService = async (busId: number, busDetails: BusDetails): Promise<any> => {
+export const updateBusService = async (busId: number, busDetails: BusDetails) : Promise<any> => {
 
+    //finding the bus
+    const bus = await Bus.findByPk(busId);
+
+    if (!bus) {
+        throw new Error("Bus not found!");
+    }
+
+
+    const {registrationNo, description, routes}=busDetails;
     
-}
+    bus.registrationNo = registrationNo;
+    bus.description = description;
+    await bus.save();
+
+    //deleting existing routes
+    await Route.destroy({ where: { busId } });
+
+    //new routes based on payroll
+    for (const route of routes) {
+        await Route.create({ ...route, busId: bus.id });
+    }
+
+    const updatedBus = await Bus.findByPk(busId, { include: [Route] });
+    
+    return {
+        success: true,
+        message: 'Bus and its routes updated successfully!',
+        updatedBus
+        }
+
+};
 
 
 export const deleteBusService = async (busId: number): Promise<any> => {

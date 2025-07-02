@@ -1,7 +1,7 @@
 require('dotenv').config();
 import express, {Request, Response} from 'express'
-import Bus from '../models/Bus';
-import { addBusService, getBusDetailsService, deleteBusService } from '../services/bus_services';
+import { addBusService, getBusDetailsService, deleteBusService, updateBusService } from '../services/bus_services';
+import { BusDetails } from '../types/types';
 
 
 
@@ -10,7 +10,7 @@ export const addBusController = async (req : Request, res : Response) : Promise<
 
     try {
 
-        const result = await addBusService(req.body);   //url params me se bus id fetch kar rae 
+        const result = await addBusService(req.body);   
         res.status(201).json({ result});                //success response
     } 
     catch (error: any) {
@@ -28,7 +28,7 @@ export const getBusDetailsController = async (req : Request, res : Response) : P
 
     try {
 
-        const busId = parseInt(req.params.id);
+        const busId = parseInt(req.params.id);             //url params me se bus id fetch kar rae 
         const result = await getBusDetailsService(busId);
         res.status(200).json({result});
 
@@ -47,6 +47,10 @@ export const updateBusController = async (req : Request, res : Response) : Promi
 
     try{
 
+        const busId = parseInt(req.params.id);             //url params me se bus id fetch kar rae 
+        const updatedBusDetails: BusDetails = req.body;
+        const result = await updateBusService(busId, updatedBusDetails);
+        res.status(200).json({result});
 
     }
     catch{
