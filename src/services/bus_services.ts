@@ -9,17 +9,14 @@ export const addBusService = async (busDetails: BusDetails): Promise<any> => {
 
     const { registrationNo, description , routes } = busDetails;
 
-
     //checking if bus already exists
     const existingBus = await Bus.findOne({ where: { registrationNo: busDetails.registrationNo } });
     if (existingBus) {  
         throw new Error("Bus with this registration number already exists!");
     }
 
-
     //creating a new bus
     const newBus = await Bus.create({ registrationNo, description });
-
 
     //adding the routes
     for (const route of routes) 
@@ -67,7 +64,6 @@ export const updateBusService = async (busId: number, busDetails: BusDetails) : 
         throw new Error("Bus not found!");
     }
 
-
     const {registrationNo, description, routes}=busDetails;
     
     bus.registrationNo = registrationNo;
@@ -108,7 +104,6 @@ export const deleteBusService = async (busId: number): Promise<any> => {
 
     //deleting bus
     await bus.destroy()
-
 
     return {
         success: true,

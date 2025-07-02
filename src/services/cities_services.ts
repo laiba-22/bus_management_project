@@ -31,7 +31,7 @@ export const addCityService = async (cityDetails: CityDetails): Promise<any> => 
 //---getting city details by id---
 export const getCityDetailsService = async (cityId: number): Promise<any> => {
 
-    const city = await Bus.findByPk(cityId);
+    const city = await Cities.findByPk(cityId);
 
     if (!city) {
         throw new Error("City not found!");
